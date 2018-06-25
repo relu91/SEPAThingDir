@@ -1,0 +1,34 @@
+{
+  "name": "sepadirectory",
+  "version": "1.0.0",
+  "description": "A simple interface compliant to Thing directory but focused on SEPA tecnology",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "nodemon index.js"
+  },
+  "keywords": [
+    "WoT",
+    "Thing",
+    "Directory",
+    "IoT",
+    "semantic",
+    "web",
+    "Linked",
+    "Data"
+  ],
+  "author": "Cristiano Aguzzi",
+  "license": "MIT",
+  "dependencies": {
+    "@arces-wot/sepa-js": "^0.1.3",
+    "body-parser": "^1.18.3",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "jsonld": "^1.0.2",
+    "nodemon": "^1.17.5",
+    "ws": "^5.2.0"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1"
+  }
+}
