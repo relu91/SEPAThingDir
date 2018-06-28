@@ -39,6 +39,7 @@ Used to publish a new thing inside thing directory.
   ]
 }
 ```
+If no specific context is defined inside the _@type_ array the **http://wot.arces.unibo.it/thing/** URL is used as the root of the type. In the example the real type stored inside the semantic graph will be **http://wot.arces.unibo.it/thing/actuator**
 
 ## Success Response
 

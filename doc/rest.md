@@ -25,7 +25,7 @@ It listens on port 3001 for websocket connections.
         "type" : "https://www.w3.org/ns/sosa/Actuator"
     }
 ``` 
-**Note**: An empty string in the type field is cosidered as valid type. To subscribe for all type of things simply remove the type attribute: `{}`
+**Note**: An empty string in the type field is cosidered as valid type. Remove the _type_ attribute to subscribe for all type of things: `{}`
 ### Notify
 Notification about new thing descriptor added:
 ```json
