@@ -1,7 +1,7 @@
 # Create
 
 Used to publish a new thing inside thing directory.
-**thingId** parameter is optional if it is defined the posted TD. 
+**thingId** parameter is optional if it is defined in the posted TD. 
 
 **URL** : `/thing/{thingId}`
 
@@ -10,6 +10,8 @@ Used to publish a new thing inside thing directory.
 **Auth required** : NO
 
 **Data constraints**
+
+--
 
 **Data example**
 
