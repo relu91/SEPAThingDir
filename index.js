@@ -7,7 +7,7 @@ const WebSocket = require('ws');
 const fs = require('fs');
 
 const base = 'http://wot.arces.unibo.it/thing/';
-const deleteQuery =`drop graph `;
+const deleteQuery =`drop silent graph `;
 
 app.use(bodyParser.json());
 
