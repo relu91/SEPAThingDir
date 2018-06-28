@@ -1,7 +1,10 @@
 
 
 $(document).ready(function() {
-    let ws = new WebSocket('ws://localhost:3001');
+    let wsURL = new URL(window.location.href);
+    wsURL.port = 3001;
+    wsURL.protocol = 'ws';
+    let ws = new WebSocket(wsURL);
     ws.onopen = () => {
         ws.send('{}');
     };
