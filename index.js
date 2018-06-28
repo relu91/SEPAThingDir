@@ -49,7 +49,7 @@ app.delete('/thing/:thingId', function(req, res) {
     sepajs.update(sparql, {host: 'localhost'})
         .then((result) => {
             // Ignore errors
-            fs.unlink('./thing/' + req.params.thingId);
+            fs.unlink('./thing/' + req.params.thingId, ()=>{});
             res.status(result.status).send(result.statusText);
         }).catch((err) => {
             res.status(400).send(err.message);
@@ -90,7 +90,7 @@ wss.on('connection', function connection(ws) {
                     data.notification.removedResults.results.bindings.forEach((binding) => {
                         let id = ('' + binding.thing.value).split(base)[1];
                         try {
-                            ws.send(JSON.stringify({ removed: id }));
+                            ws.send(JSON.stringify({removed: id}));
                         } catch (error) {
                             sub.unsubscribe();
                         }
@@ -120,12 +120,11 @@ function notify(sub, ws, things) {
             if (!err) {
                 let td = JSON.parse(data);
                 try {
-                    ws.send(JSON.stringify({ added: td }));
+                    ws.send(JSON.stringify({added: td}));
                 } catch (error) {
                     console.log('socket closed');
                     sub.unsubscribe();
                 }
-               
             }
         });
     });
