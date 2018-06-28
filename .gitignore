@@ -80,3 +80,4 @@ typings/
 
 # ignore local storage of Things
 /thing
+.vscode/launch.json
