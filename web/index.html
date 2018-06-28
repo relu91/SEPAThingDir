@@ -4,8 +4,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>SEPA Thing Directory</title>
+    <link rel="icon" href="/web/favicon.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Proza+Libre" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/web/scripts/main.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Proza+Libre" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -16,6 +19,27 @@
         h1{
            font-family: 'Proza Libre', sans-serif;
         }
+
+        .thingDesc{
+            display: flex;
+             flex-direction: row;
+             justify-content: left;
+            box-shadow: 0px 10px 15px #00000090;
+            margin: 15px;
+        }
+
+        .thingIcon{
+             max-width: 50px;
+             max-height: 50px;
+             margin: 5px;
+        }
+
+        .thingDesc>p{
+            align-self: center;
+            font-family: 'Proza Libre', sans-serif;
+            font-weight: lighter;
+        }
+
         #main {
             width:100%; 
             margin:50px auto;
@@ -26,6 +50,7 @@
             width: 60%;
             margin:0 auto;
         }
+
         @media only screen and (min-width: 768px){
         #main {
             width:50%; 
@@ -56,6 +81,11 @@
         Estne, quaeso, inquam, sitienti in bibendo voluptas? Duo Reges: constructio interrete. Quamvis enim depravatae non sint,
         pravae tamen esse possunt. Materiam vero rerum et copiam apud hos exilem, apud illos uberrimam reperiemus. Ita nemo beato
         beatior. Etenim si delectamur, cum scribimus, quis est tam invidus, qui ab eo nos abducat?</p>
+      
+        <div id="thinglist">
+            
+           
+        </div>
     </div>
     
     <div id="copyright">Icons made by
