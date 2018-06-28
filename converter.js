@@ -8,6 +8,10 @@ module.exports.toNQuads = function(result) {
     return nquads;
 };
 
+/** Converts the object entity to a valid NQuads term
+ * @param {string} object - the object to be converted
+ * @return {string} an NQuad term.
+*/
 function convertObject(object) {
     let obj = '';
     if (object.type === 'bnode') {

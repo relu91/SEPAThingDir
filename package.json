@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "app": "nodemon index.js"
+    "app": "nodemon index.js",
+    "debug": "nodemon --inspect=9229 index.js"
   },
   "keywords": [
     "WoT",

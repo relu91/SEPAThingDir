@@ -77,3 +77,6 @@ typings/
 
 
 # End of https://www.gitignore.io/api/node
+
+# ignore local storage of Things
+/thing
