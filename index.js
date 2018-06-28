@@ -56,8 +56,11 @@ app.delete('/thing/:thingId', function(req, res) {
         });
 });
 
-app.get('thing/:thingId', function(req, res) {
-    res.sendFile('./thing/'+thingId);
+app.get('/thing/:thingId', function(req, res) {
+    res.type('application/json');
+    res.sendFile(__dirname + '/thing/' + req.params.thingId,{ headers: {
+        'Content-type': 'application/json'
+    }});
 });
 
 app.use('/', express.static('./web'));

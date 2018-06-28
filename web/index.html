@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,83 +17,153 @@
             justify-content: center;
             flex-direction: column;
         }
-        h1{
-           font-family: 'Proza Libre', sans-serif;
+
+        h1 {
+            font-family: 'Proza Libre', sans-serif;
         }
 
-        .thingDesc{
+        .thingDesc {
             display: flex;
-             flex-direction: row;
-             justify-content: left;
+            flex-direction: row;
+            justify-content: left;
             box-shadow: 0px 10px 15px #00000090;
             margin: 15px;
-        }
-
-        .thingIcon{
-             max-width: 50px;
-             max-height: 50px;
-             margin: 5px;
-        }
-
-        .thingDesc>p{
-            align-self: center;
             font-family: 'Proza Libre', sans-serif;
+        }
+
+        .thingIcon {
+            max-width: 50px;
+            max-height: 50px;
+            margin: 5px;
+        }
+
+        .thingDesc>p {
+            align-self: center;
             font-weight: lighter;
         }
 
-        #main {
-            width:100%; 
-            margin:50px auto;
+        .thingDesc>p>a {
+            background: #0af4fa;
+            color: white;
+            border-radius: 5px;
+            font-style: normal;
+            text-decoration: none;
+            padding: 5px;
+            margin-left: 5px;
+            padding-bottom: 2px;
             text-align: center;
-        }
-        #icon {
-            height: 60%;
-            width: 60%;
-            margin:0 auto;
+            
         }
 
-        @media only screen and (min-width: 768px){
         #main {
-            width:50%; 
-            margin:50px auto;
+            width: 100%;
+            margin: 50px auto;
             text-align: center;
         }
+
         #icon {
             height: 60%;
             width: 60%;
-            margin:0 auto;
+            margin: 0 auto;
         }
+
+        input[type="text"] {
+            width: 55%;
+            padding: 5px;
+            padding-left: 30px;
+            border: 0px solid transparent;
+            border-radius: 5px;
+            height: 30px;
+
+            background-image: url('https://image.freepik.com/free-icon/magnification-lens-with-handle-outline_318-39725.jpg');
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+            background-position: 3px 10px;
+           
         }
+
+
+        input[type="text"]:focus {
+            outline: none;
+            border-bottom: 2px solid rgb(0, 194, 253);
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        #action-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+        #action-container>a {
+            width: 45%;
+            border-radius: 5px;
+            background: #55ffdd;
+            margin-left: 5px;
+            border-style: none;
+            font-weight: bolder;
+            font-size: 1.5em;
+            color: white;
+            text-decoration: none;
+            font-family: 'Proza Libre', sans-serif;
+            vertical-align: central;
+            text-align: center;
+            padding: 6px 0;
+        }
+        #action-container>input[type="button"]:focus {
+            outline: none;
+        }
+
+        @media only screen and (min-width: 768px) {
+            #main {
+                width: 50%;
+                margin: 50px auto;
+                text-align: center;
+            }
+            #icon {
+                height: 40%;
+                width: 40%;
+                margin: 0 auto;
+            }
+        }
+
         #copyright {
             font-size: 0.7em
         }
-        p{
+
+        p {
             text-align: left;
         }
     </style>
 </head>
+
 <body>
     <div id="main">
         <object id="icon" type="image/svg+xml" data="web/thingdir.svg">
             Your browser does not support SVG
         </object>
         <h1>Welcome to SEPA Thing Directory</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Si alia sentit, inquam, alia loquitur, numquam intellegam quid sentiat;
-        Estne, quaeso, inquam, sitienti in bibendo voluptas? Duo Reges: constructio interrete. Quamvis enim depravatae non sint,
-        pravae tamen esse possunt. Materiam vero rerum et copiam apud hos exilem, apud illos uberrimam reperiemus. Ita nemo beato
-        beatior. Etenim si delectamur, cum scribimus, quis est tam invidus, qui ab eo nos abducat?</p>
-      
+        <p>This is a simple implementation of a thing directory based on SEPA technologies. 
+            it provides realtime api to get notification about new things added in the sistem.
+            you can filter using the textbox below or you could have a look at Sepa Thing Directory
+            Api at Get Started button. 
+        </p>
+        <div id="action-container">
+            <input id="search" type="text" placeholder="Serch for types: eg. http://http://www.w3.org/ns/sosa/sensor"></input>
+            <a href="https://github.com/relu91/SEPAThingDir/blob/master/doc/rest.md">Get Started</a>
+        </div>
+        
+
         <div id="thinglist">
-            
-           
+
+
         </div>
     </div>
-    
+
     <div id="copyright">Icons made by
         <a href="https://www.flaticon.com/authors/freepik" title="Smart house">Smart house</a> from
         <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by
-        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
-            target="_blank">CC 3.0 BY</a>
+        <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
     </div>
 </body>
+
 </html>
