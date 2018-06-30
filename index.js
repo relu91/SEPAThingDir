@@ -58,8 +58,8 @@ app.delete('/thing/:thingId', function(req, res) {
 
 app.get('/thing/:thingId', function(req, res) {
     res.type('application/json');
-    res.sendFile(__dirname + '/thing/' + req.params.thingId,{ headers: {
-        'Content-type': 'application/json'
+    res.sendFile(__dirname + '/thing/' + req.params.thingId, {headers: {
+        'Content-type': 'application/json',
     }});
 });
 
@@ -67,7 +67,7 @@ app.use('/', express.static('./web'));
 app.use('/web', express.static('./web'));
 
 app.listen(3000, function() {
-    console.log('Thing Directory interface listening on port 3000!!');
+    console.log('Thing Directory interface listening on port 3000!');
 });
 
 const wss = new WebSocket.Server({port: 3001});
@@ -78,35 +78,44 @@ wss.on('connection', function connection(ws) {
     console.log('connected');
     ws.on('message', function incoming(message) {
         console.log('received: %s', message);
-        message = JSON.parse(message);
-        let query = message.type ? typeQuery + '<'+message.type +'>. }}' : allQuery;
+        try {
+            message = JSON.parse(message);
+            let query = message.type ? typeQuery + '<' + message.type + '>. }}' : allQuery;
 
-        let sub = sepajs.subscribe(query, {
-            next(data) {
-                console.log('Data received:' + data);
-                if (data.notification.addedResults.results.bindings.length > 0) {
-                    console.log('Things added');
-                    notify(sub, ws, data.notification.addedResults.results.bindings);
-                }
+            let sub = sepajs.subscribe(query, {
+                next(data) {
+                    console.log('Data received:' + data);
+                    if (data.notification.addedResults.results.bindings.length > 0) {
+                        console.log('Things added');
+                        notify(sub, ws, data.notification.addedResults.results.bindings);
+                    }
 
-                if (data.notification.removedResults.results.bindings.length > 0) {
-                    data.notification.removedResults.results.bindings.forEach((binding) => {
-                        let id = ('' + binding.thing.value).split(base)[1];
-                        try {
-                            ws.send(JSON.stringify({removed: id}));
-                        } catch (error) {
-                            sub.unsubscribe();
-                        }
-                    });
-                }
-            },
-            error(err) {
-                console.log('Received an error: ' + err);
-            },
-            complete() {
-                console.log('Server closed connection ');
-            },
-        });
+                    if (data.notification.removedResults.results.bindings.length > 0) {
+                        data.notification.removedResults.results.bindings.forEach((binding) => {
+                            let id = ('' + binding.thing.value).split(base)[1];
+                            try {
+                                ws.send(JSON.stringify({ removed: id }));
+                            } catch (error) {
+                                sub.unsubscribe();
+                            }
+                        });
+                    }
+                },
+                error(err) {
+                    console.log('Received an error: ' + err);
+                },
+                complete() {
+                    console.log('Server closed connection ');
+                },
+            });
+        } catch (error) {
+            try {
+                ws.send(JSON.stringify({error: error.message}));
+            } catch (error) {
+                sub.unsubscribe();
+            }
+            return;
+        }
     });
 });
 
