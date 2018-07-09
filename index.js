@@ -1,70 +1,19 @@
 const express = require('express');
-const jsonld = require('jsonld');
+
 const sepajs = require('@arces-wot/sepa-js').client;
 const bodyParser = require('body-parser');
 const app = express();
 const WebSocket = require('ws');
 const fs = require('fs');
 
-const base = 'http://wot.arces.unibo.it/thing/';
-const deleteQuery =`drop silent graph `;
+const thingRouter = require('./routers/thing');
+
 
 app.use(bodyParser.json());
 
-
-app.post('/thing/:thingId', function(req, res) {
-    if (!req.params.thingId && !req['@id']) {
-        res.status(400).send('Bad request: No thing id found');
-        return;
-    }
-
-   req.body['@id'] = req.body['@id'] ? req.body['@id'] : req.params.thingId;
-
-    jsonld.toRDF(req.body, {base: base, format: 'application/n-quads'}, (err, nquads) => {
-        let sparql = 'INSERT { GRAPH <' + base+ req.body['@id'] +'>{' + nquads + '}}WHERE{}';
-
-        sepajs.update(sparql, {host: 'localhost'})
-            .then((result) => {
-                fs.writeFile('./thing/'+req.body['@id'], JSON.stringify(req.body), function(err) {
-                    if (err) {
-                        res.status(500).send(''+err);
-                    } else {
-                        res.send(200, 'Thing inserted');
-                    }
-                });
-            }).catch((err) => {
-                res.status(400).send(err);
-            });
-    });
-});
-
-app.delete('/thing/:thingId', function(req, res) {
-    if (!req.params.thingId) {
-        res.status(400).send('Bad request: No thing id found');
-        return;
-    }
-
-    let sparql = deleteQuery + '<'+base + req.params.thingId+'>';
-
-    sepajs.update(sparql, {host: 'localhost'})
-        .then((result) => {
-            // Ignore errors
-            fs.unlink('./thing/' + req.params.thingId, ()=>{});
-            res.status(result.status).send(result.statusText);
-        }).catch((err) => {
-            res.status(400).send(err.message);
-        });
-});
-
-app.get('/thing/:thingId', function(req, res) {
-    res.type('application/json');
-    res.sendFile(__dirname + '/thing/' + req.params.thingId, {headers: {
-        'Content-type': 'application/json',
-    }});
-});
-
 app.use('/', express.static('./web'));
 app.use('/web', express.static('./web'));
+app.use('/thing', thingRouter);
 
 app.listen(3000, function() {
     console.log('Thing Directory interface listening on port 3000!');
@@ -119,6 +68,7 @@ wss.on('connection', function connection(ws) {
     });
 });
 
+const base = 'http://wot.arces.unibo.it/thing/';
 
 /** Send changes back to the client
  *  @param {sub} sub - Sepa client.
