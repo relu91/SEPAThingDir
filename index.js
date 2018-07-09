@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const WebSocket = require('ws');
 const fs = require('fs');
-
+const coap = require('coap');
 const thingRouter = require('./routers/thing');
+const thingCoapRouter = require('./routers/coapThingRouter');
 
 
 app.use(bodyParser.json());
@@ -16,9 +17,17 @@ app.use('/web', express.static('./web'));
 app.use('/thing', thingRouter);
 
 app.listen(3000, function() {
-    console.log('Thing Directory interface listening on port 3000!');
+    console.log('Thing Directory HTTP interface listening on port 3000!\n');
 });
 
+
+server = coap.createServer();
+
+server.on('request', thingCoapRouter);
+
+server.listen(function() {
+    console.log('Thing Directory Coap interface listening on port 5683\n');
+});
 const wss = new WebSocket.Server({port: 3001});
 let typeQuery = 'select ?thing where {graph ?thing {?thing rdf:type <http://www.w3.org/ns/td#Thing>. ?thing rdf:type ';
 let allQuery = 'select ?thing where {graph ?thing {?thing rdf:type <http://www.w3.org/ns/td#Thing>}}';
@@ -43,7 +52,7 @@ wss.on('connection', function connection(ws) {
                         data.notification.removedResults.results.bindings.forEach((binding) => {
                             let id = ('' + binding.thing.value).split(base)[1];
                             try {
-                                ws.send(JSON.stringify({ removed: id }));
+                                ws.send(JSON.stringify({removed: id}));
                             } catch (error) {
                                 sub.unsubscribe();
                             }
