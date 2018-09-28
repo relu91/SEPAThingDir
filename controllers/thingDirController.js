@@ -12,7 +12,7 @@ exports.publish_thing = function(req, res) {
         res.status(400).send('Bad request: No thing id found');
         return;
     }
-
+    
     req.body['@id'] = req.body['@id'] ? req.body['@id'] : req.params.thingId;
 
     jsonld.toRDF(req.body, {base: base, format: 'application/n-quads'}, (err, nquads) => {
@@ -28,7 +28,7 @@ exports.publish_thing = function(req, res) {
                     }
                 });
             }).catch((err) => {
-                res.status(400).send(err);
+                res.status(400).send(err.message);
             });
     });
 };

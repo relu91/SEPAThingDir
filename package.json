@@ -26,8 +26,8 @@
     "coap": "^0.22.0",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
-    "jsonld": "^1.0.2",
-    "ws": "^5.2.0"
+    "jsonld": "^1.1.0",
+    "ws": "^5.2.2"
   },
   "devDependencies": {
     "eslint-config-google": "^0.9.1"
