@@ -20,7 +20,6 @@ app.listen(3000, function() {
     console.log('Thing Directory HTTP interface listening on port 3000!\n');
 });
 
-
 server = coap.createServer();
 
 server.on('request', thingCoapRouter);
