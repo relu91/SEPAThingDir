@@ -4,6 +4,7 @@
   "description": "A simple interface compliant to Thing directory but focused on SEPA tecnology",
   "main": "index.js",
   "scripts": {
+    "start" : "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "app": "pm2 start index.js --watch",
     "debug": "nodemon --inspect=9229 index.js"
