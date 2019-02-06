@@ -19,7 +19,6 @@ exports.publish_thing = function(req, res) {
 
     req.body['@id'] = req.body['@id'] ? req.body['@id'] : req.params.thingId;
 
-
     jsonld.toRDF(req.body, {base: base, format: 'application/n-quads'}, (err, nquads) => {
         let sparql = 'INSERT { GRAPH <' + base + req.body['@id'] + '>{' + nquads + '}}WHERE{}';
         sepajs.update(sparql, {host: 'localhost'})
