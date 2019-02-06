@@ -12,12 +12,16 @@ exports.publish_thing = function(req, res) {
         res.status(400).send('Bad request: No thing id found');
         return;
     }
-    
+    if (!req.body['@type'].includes('Thing')) {
+        res.status(400).send('Bad request: Json-LD entity should be a Thing. Missing @type Thing in the message');
+        return;
+    }
+
     req.body['@id'] = req.body['@id'] ? req.body['@id'] : req.params.thingId;
+
 
     jsonld.toRDF(req.body, {base: base, format: 'application/n-quads'}, (err, nquads) => {
         let sparql = 'INSERT { GRAPH <' + base + req.body['@id'] + '>{' + nquads + '}}WHERE{}';
-
         sepajs.update(sparql, {host: 'localhost'})
             .then((result) => {
                 fs.writeFile('./thing/' + req.body['@id'], JSON.stringify(req.body), function(err) {
@@ -53,7 +57,7 @@ exports.delete_thing = function(req, res) {
 
 exports.read_thing = function(req, res) {
     res.type('application/json');
-    
+
     res.sendFile(path.resolve('thing/' + req.params.thingId), {
         headers: {
             'Content-type': 'application/json',
