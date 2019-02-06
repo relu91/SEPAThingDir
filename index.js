@@ -29,7 +29,7 @@ server.listen(function() {
 });
 const wss = new WebSocket.Server({port: 3001});
 let typeQuery = 'select ?thing where {graph ?thing {?thing rdf:type <http://www.w3.org/ns/td#Thing>. ?thing rdf:type ';
-let allQuery = 'select ?thing where {graph ?thing {?thing rdf:type <http://www.w3.org/ns/td#Thing>}}';
+let allQuery = 'select ?thing where {graph ?g {?thing rdf:type <http://www.w3.org/ns/td#Thing>}}';
 
 wss.on('connection', function connection(ws) {
     console.log('connected');
