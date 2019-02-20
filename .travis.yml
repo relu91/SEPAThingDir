@@ -1,8 +1,18 @@
-language: node_js
-node_js:
-- stable
-- '6'
-- '4'
-before_install:
-- openssl aes-256-cbc -K $encrypted_c97e1ee5896c_key -iv $encrypted_c97e1ee5896c_iv
-  -in deploy_rsa.enc -out ../keys/deploy_rsa -d
+language: minimal
+addons:
+  ssh_known_hosts: mml.arces.unibo.it
+before_deploy:
+- openssl aes-256-cbc -k $deploy_password -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/deploy_rsa
+- ssh-add /tmp/deploy_rsa
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ cristianoaguzzi@mml.arces.unibo.it:/home/cristianoaguzzi/thing_directory
+  on:
+    branch: master
+env:
+  global:
+    secure: lYXSJA9G1DCU+F8R+iVUjpF3N28mP3QLCJBJEH0o2V0VpQJE7Nq66D7D3kBYTYEJ//X4BZI5QkmtXueiRJG9XhItrlXHHK1RCq4RQ5Z55PyzcTjwc0i/vX5d25JUx0lt+/g9rQbDRbazjaXko4+Sqx7RCF8AJTm/cbN1XFqmsjjDUYPv5VgqHZUovwTjiuIAXTO4YCBracq9NZesSDejszIaj4sJ8mkJpWg5A18jIgxGyQGehrHhqgIuzqd6Qq/sGr1/j/SVck5SaNLaDaQFXabX4U6oai/KmSwBrJmXnvJFjvVMajzZR6kugwiXdavAxRbkt2Vrex+jquc8kMw2Zf9Vk/jEGM7GWJrTwodBNoRshVaHA0R5LhiPJ2XuXqVwat2ToglHvX8QIXVBDgXmJsFHlyGxErEu4igNwI6ew+xa9dHDDVnVUNA7FIEO9wgrbOD6P0mkI4oH14c0jSMkMjswoTJEcZSfSbNRskMb8PiWndqe5ob1LVtY9mwsmbB5Tq9q1f1rVLPO1m08mSuzdsqQ2DJMyTcpUG3sAwn+TcP0QFbdndP2QCVivXoeLw9Mcp108Pik26aV2h4yLKlbRXi351Gvaz7jjWXFdPTQZMhWqqGwb8s9p/H4C4uJOuOFFq7V4rzURHafk7vSqotTxcUxC5Hhjkt1wLaSRr9TAxU=
+
