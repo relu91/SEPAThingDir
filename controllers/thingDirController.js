@@ -19,6 +19,8 @@ exports.publish_thing = function(req, res) {
 
     req.body['@id'] = req.body['@id'] ? req.body['@id'] : req.params.thingId;
 
+    delete req.body.id;
+
     jsonld.toRDF(req.body, {base: base, format: 'application/n-quads'}, (err, nquads) => {
         if (err) {
             res.status(400).send(err.message);
