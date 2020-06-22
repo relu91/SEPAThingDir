@@ -1,5 +1,5 @@
 # SEPAThingDir
-Simple thing container based on SEPA technology. it provides realtime api to get notification about new things added in the sistem. A live instance is avaible at http://mml.arces.unibo.it:3000/. 
+Simple thing container based on SEPA technology. it provides realtime api to get notification about new things added in the sistem. 
 
 ## Usage 
 See the [doc folder](doc/rest.md) for REST api and RealTime api documentation.
